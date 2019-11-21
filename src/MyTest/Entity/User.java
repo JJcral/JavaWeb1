@@ -13,6 +13,9 @@ public class User {
     public User() {
     }
 
+    public User(String pwd){
+        this.pwd = pwd;
+    }
     public User(String name, String pwd) {
         this.name = name;
         this.pwd = pwd;

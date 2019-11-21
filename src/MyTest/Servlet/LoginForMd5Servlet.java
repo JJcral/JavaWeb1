@@ -10,14 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 /**
  * @Auther: xuwenjin
- * @Date: 2019/11/20 15:57
- * @Description:手写web.xml配置，最原始的方法
+ * @Date: 2019/11/21 17:35
+ * @Description:
  */
-public class LoginServlet extends HttpServlet {
+public class LoginForMd5Servlet extends HttpServlet {
 
-    public LoginServlet(){
+    public LoginForMd5Servlet(){
         super();
     }
 
@@ -30,28 +31,22 @@ public class LoginServlet extends HttpServlet {
         String pwd = request.getParameter("pwd");
         String flag = request.getParameter("flag");
 
-        System.out.println(name);
-        System.out.println(pwd);
+        //对密码进行加密
+
+
+        System.out.println("网页传过来的名字是："+name);
+        System.out.println("网页密码是："+pwd);
         if(flag!=null){
             System.out.println("一天之内免登录");
         }
 
-//        这是测试最简单的用例
-//        if(name==null || name.equals("")){
-//            response.sendRedirect("index.jsp");
-//        }else {
-//            request.setAttribute("name",name);
-//            request.getRequestDispatcher("show.jsp").forward(request,response);
-//        }
-
-        //        这是测试加上数据库的用例
-        User user = userDao.selectBynameANDpwd(name, pwd);
-        if(user == null){
-            System.out.println("查无此人");
+        User user = userDao.selectByname(name);
+        if(user == null || !user.getPwd().equals(pwd)){
+            System.out.println("真的查无此人");
             response.sendRedirect("index.jsp");
         }else {
-            System.out.println("找到了："+user.getName()+"; "+user.getPwd());
-            Cookie name1 = new Cookie("name",user.getName());
+            System.out.println("找到了，数据库密码是："+user.getPwd());
+            Cookie name1 = new Cookie("name",name);
             Cookie pwd1 = new Cookie("pwd", user.getPwd());
             if(flag!=null){
                 if(flag.equals("1")){
