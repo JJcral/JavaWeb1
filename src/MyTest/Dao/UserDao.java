@@ -60,11 +60,4 @@ public class UserDao {
     return user;
     }
 
-
-//    public static void main(String[] args) {
-//        UserDao userDao = new UserDao();
-////        User user = userDao.selectByname("name","1");
-////        System.out.println(user);
-//
-//    }
 }
